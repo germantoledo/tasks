@@ -1,0 +1,21 @@
+<div class="flex flex-col items-center">
+    <div class="p-4 w-11/12 md:w-7/12 lg:w-6/12 mt-5">
+        <h3 class="text-xl font-medium text-center">Lista de Tareas</h3>
+    </div>
+
+    <div class="w-11/12 md:w-7/12 lg:w-6/12 flex flex-col md:flex-row md:justify-between items-center">
+        <h6 class="font-medium w-full mb-3 md:mb-0">Filtros</h6>
+        <div class="flex gap-3">
+            <button type="button" pButton pRipple class="bg-slate-900 text-white px-4 py-1 rounded-full">Todos</button>
+            <button type="button" pButton pRipple
+                class="hover:bg-slate-900 hover:text-white text-slate-900 border border-slate-900 px-4 py-1 rounded-full">Completadas</button>
+            <button type="button" pButton pRipple
+                class="hover:bg-slate-900 hover:text-white text-slate-900 border border-slate-900 px-4 py-1 rounded-full">Pendientes</button>
+        </div>
+    </div>
+    
+    <div class="w-11/12 md:w-7/12 lg:w-6/12 flex flex-col md:flex-row md:justify-between items-center mt-8">
+        <app-task-card></app-task-card>
+    </div>
+
+</div>
