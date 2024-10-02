@@ -1,45 +1,56 @@
 <p-dialog header="Crear Nueva Tarea" (onHide)="showModal(false)" [(visible)]="visible" [modal]="true"
     [breakpoints]="{ '960px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-    <form class="py-3">
+    <form [formGroup]="taskForm" class="py-3">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
             <label for="title" class="w-full font-medium mb-2 md:w-4/12 md:mb-0">Nombre de la tarea:</label>
-            <input class="border border-gray-400 h-10 w-full md:w-8/12 px-3" id="title" type="text" pInputText />
+            <input formControlName="title" class="border border-gray-400 h-10 w-full md:w-8/12 px-3" id="title"
+                type="text" pInputText />
         </div>
         <div class="flex flex-col md:flex-row md:justify-between mb-3">
-            <label for="limit" class="w-full font-medium mb-2 md:w-4/12 md:mb-0">Fecha límite:</label>
-            <p-calendar appendTo="body" ngClass="border border-gray-400 h-10 w-full md:w-8/12"
-                styleClass="w-full h-8 z-50" id="limit"></p-calendar>
+            <label for="limitDate" class="w-full font-medium mb-2 md:w-4/12 md:mb-0">Fecha límite:</label>
+            <p-calendar formControlName="limitDate" appendTo="body"
+                ngClass="border border-gray-400 h-9 rounded-lg w-full md:w-8/12" styleClass="w-full h-8 z-50"
+                id="limitDate"></p-calendar>
         </div>
 
         <h6 class="my-5 font-semibold">Personas asociadas</h6>
 
         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
             <label for="fullname" class="w-full font-medium mb-2 md:w-4/12 md:mb-0">Nombre completo:</label>
-            <input class="border border-gray-400 h-10 w-full md:w-8/12 px-3" id="fullname" type="text" pInputText />
+            <input formControlName="fullname" class="border border-gray-400 h-10 w-full md:w-8/12 px-3" id="fullname"
+                type="text" pInputText />
         </div>
         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
             <label for="age" class="w-full font-medium mb-2 md:w-4/12 md:mb-0">Edad:</label>
-            <p-inputNumber ngClass="border border-gray-400 h-10 w-full md:w-8/12" styleClass="w-full h-8 z-50" id="age"
-                inputId="integeronly" formControlName="value"></p-inputNumber>
+            <p-inputNumber formControlName="age" ngClass="border border-gray-400 h-9 rounded-lg w-full md:w-8/12"
+                styleClass="w-full h-8 z-50" id="age" inputId="integeronly"></p-inputNumber>
         </div>
 
         <h6 class="my-5 font-semibold">Habilidades</h6>
         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
-            <input class="border border-gray-400 h-10 w-full md:w-8/12 px-3" id="skill" type="text" pInputText />
-            <a class="cursor-pointer font-bold underline mt-2 md:mt-0">Añadir habilidad</a>
+            <!-- <input class="border border-gray-400 h-10 w-full md:w-8/12 px-3" id="skill" type="text" pInputText /> -->
+            <a class="cursor-pointer font-bold underline mt-2 md:mt-0" (click)="addSkill()">Añadir habilidad</a>
         </div>
 
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
-            <p>Habilidad A</p>
-            <a class="cursor-pointer font-bold underline mt-2 md:mt-0">Eliminar habilidad</a>
+        <div formArrayName="skills" class="flex flex-col md:flex-row md:items-center md:justify-between mb-3"
+            *ngFor="let skill of skills.controls; let i = index">
+            <input [formControlName]="i" class="border border-gray-400 h-10 w-full md:w-8/12 px-3" type="text"
+                pInputText />
+            <a class="cursor-pointer font-bold underline mt-2 md:mt-0" (click)="removeSkill(i)">Eliminar habilidad</a>
         </div>
 
         <div class="flex flex-row items-center my-8 gap-6">
-            <a class="cursor-pointer font-bold underline mt-2 md:mt-0">Añadir Persona</a>
-            <a class="cursor-pointer font-bold underline mt-2 md:mt-0">Eliminar Persona</a>
+            <a class="cursor-pointer font-bold underline mt-2 md:mt-0" (click)="addPerson()">Añadir Persona</a>
         </div>
 
-        <button type="button" pButton pRipple class="bg-slate-900 text-white px-5 py-3">Guardar Tarea</button>
+        <div class="flex flex-col mb-8">
+        <div class="flex flex-row items-center gap-6" *ngFor="let person of persons">
+            <p>{{person.fullname}} ({{person.age}}) [{{person.skills | json}}]</p>
+            <a class="cursor-pointer font-bold underline mt-2 md:mt-0" (click)="removePerson(person.id!)">Eliminar Persona</a>
+        </div>
+    </div>
+
+        <button type="button" pButton pRipple class="bg-slate-900 text-white px-5 py-3" (click)="saveTask()">Guardar Tarea</button>
 
     </form>
 </p-dialog>

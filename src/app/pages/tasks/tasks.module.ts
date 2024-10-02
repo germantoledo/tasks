@@ -11,7 +11,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TasksRoutingModule } from './tasks-routing.module';
 import { TasksComponent } from './tasks.component';
 import { TaskFormComponent } from './task-form/task-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListComponent } from './list/list.component';
 import { TaskCardComponent } from './list/task-card/task-card.component';
 
@@ -25,6 +25,7 @@ import { TaskCardComponent } from './list/task-card/task-card.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     TasksRoutingModule,
     ButtonModule,
